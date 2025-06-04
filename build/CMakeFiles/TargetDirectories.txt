@@ -1,4 +1,0 @@
-/home/matgon02/Proyectos/ColorBlindAssist/build/CMakeFiles/colorblindassist.dir
-/home/matgon02/Proyectos/ColorBlindAssist/build/CMakeFiles/main.dir
-/home/matgon02/Proyectos/ColorBlindAssist/build/CMakeFiles/edit_cache.dir
-/home/matgon02/Proyectos/ColorBlindAssist/build/CMakeFiles/rebuild_cache.dir

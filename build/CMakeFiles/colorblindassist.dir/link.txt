@@ -1,2 +1,0 @@
-/usr/bin/ar qc libcolorblindassist.a CMakeFiles/colorblindassist.dir/src/color.cpp.o CMakeFiles/colorblindassist.dir/src/simulator.cpp.o
-/usr/bin/ranlib libcolorblindassist.a
