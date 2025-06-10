@@ -1,5 +1,6 @@
 #pragma once
 #include "color.hpp"
+#include "string"
 
 namespace ColorBlindAssist {
     enum class DaltonismType {
@@ -15,5 +16,6 @@ namespace ColorBlindAssist {
     class Simulator {
         public:
             static Color simulate(Color color, DaltonismType type);
+            static void simularDaltonismo(const std::string& ruta, DaltonismType tipo);
     };
 }

@@ -1,4 +1,5 @@
 #include "cba/simulator.hpp"
+#include <opencv2/opencv.hpp>
 
 namespace ColorBlindAssist {
     Color Simulator::simulate(Color color, DaltonismType type) {
@@ -32,5 +33,39 @@ namespace ColorBlindAssist {
         ret.set_b(b);
         return ret;
     }
+
+    void Simulator::simularDaltonismo(const std::string& ruta, DaltonismType tipo) {
+        cv::Mat imagen = cv::imread(ruta, cv::IMREAD_COLOR);
+        cv::Mat imagenRGB;
+        cv::cvtColor(imagen, imagenRGB, cv::COLOR_RGB2BGR);
+        if (imagen.empty()) {
+            std::cerr << "No se pudo cargar la imagen." << std::endl;
+            return;
+        }
+        
+        cv::Mat resultado = imagenRGB.clone();
+        cv::Mat resultadoBGR;
+
+        Simulator simulador;
+
+        for (int y = 0; y < imagen.rows; ++y) {
+            for (int x = 0; x < imagen.cols; ++x) {
+                cv::Vec3b pixel = imagen.at<cv::Vec3b>(y, x);
+                Color color(pixel[0], pixel[1], pixel[2]);
+                Color simulado = simulador.simulate(color, tipo);
+                resultado.at<cv::Vec3b>(y, x) = cv::Vec3b(
+                    std::clamp(simulado.get_b(), 0, 255),
+                    std::clamp(simulado.get_g(), 0, 255),
+                    std::clamp(simulado.get_r(), 0, 255)
+                );
+            }
+        }
+        cv::cvtColor(resultado, resultadoBGR, cv::COLOR_RGB2BGR);
+        cv::imshow("Imagen original", imagen);
+        cv::imshow("Simulacion de Daltonismo", resultadoBGR);
+        cv::waitKey(0);
+        cv::imwrite("imagen_simulada.png", resultadoBGR);
+    }
+
 
 }
